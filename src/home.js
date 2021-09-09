@@ -3,14 +3,13 @@ import { render } from 'react-dom';
 import { HashRouter as Router, Route,
 	Switch, Link
 } from 'react-router-dom';
-
+import Index from './routes/index';
 import AdAnalyze from './routes/ad-analyze';
 import AdBoard from './routes/ad-board';
 import CategoryList from './routes/category-list';
 import SkuAd from './routes/sku-ad';
 
 import logo from './images/logo.jpeg';
-import callApi1 from 'utils/callApi1';
 
 import './index.less';
 import { Layout, Menu } from 'antd';
@@ -43,32 +42,11 @@ class Home extends (PureComponent || Component) {
 		if (document.getElementById('loading-container') !== null) {
 			document.body.removeChild(document.getElementById('loading-container'));
 		}
-		// this.getUserInfo();
 		this.setState({
 			spinning: false
 		});
 	}
 
-  getUserInfo = () => {
-  	callApi1({
-  		type: 'POST',
-  		api: '/api/my/info',
-  		data: {
-  			req_time_sequence: '/api/my/info$$1'
-  		},
-  		success: (res = {}) => {
-  			const {info = {}} = res;
-  			window.$$context.userInfo = info;
-
-  			this.setState({
-  				userInfo: info,
-  				spinning: false
-  			}, () => {
-  				//
-  			});
-  		}
-  	});
-  }
   toggle = () => {
   	this.setState({
   		collapsed: !this.state.collapsed,
@@ -142,11 +120,6 @@ class Home extends (PureComponent || Component) {
   							>
   								<div style={{height: '100%'}}>
   									<Route exact path="/" component={Index} />
-  									<Route path="/level-words" component={LevelWords} />
-  									<Route path="/ad-week" component={ADWeek} />
-  									<Route path="/week-report" component={WeekReport} />
-  									{/* <Route path="/personal-ad" component={PersonalAD} /> */}
-  									<Route path="/keywords" component={Keywords} />
   									<Route path="/ad-analyze" component={AdAnalyze} />
   									<Route path="/sku-ad" component={SkuAd} />
   									<Route path="/ad-board" component={AdBoard} />

@@ -1,8 +1,9 @@
 import React, { Component, PureComponent } from 'react';
 import { render } from 'react-dom';
 import { HashRouter as Router, Route,
-	Switch, Link
+	Switch
 } from 'react-router-dom';
+import Home from './home';
 
 import './index.less';
 
@@ -33,7 +34,6 @@ class Root extends (PureComponent || Component) {
   		<div>
   			<Router >
   				<Switch>
-  					<Route exact path="/login" component={Login} />
   					<Route path="/" component={Home} />
   				</Switch>
   			</Router>
