@@ -1,13 +1,7 @@
 //框架依赖
 import React, {Component, PureComponent} from 'react';
 import { Select, Input, Tabs, DatePicker, Button, Empty, Checkbox, Modal, Row, Col, Collapse, Descriptions, Menu, Dropdown, Card, Table } from 'antd';
-import { Base64 } from 'js-base64';
-import sha256 from 'sha256';
-import callApi1 from 'utils/callApi1';
 import callApi from 'utils/callApi';
-// var echarts = require('echarts');
-import * as echarts from 'echarts';
-import CountUp from 'react-countup';
 import moment from 'moment';
 import { DownOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -26,8 +20,6 @@ class Logon extends (PureComponent || Component) {
 
   }
 
-  userIdentifier='12000001802'
-  password=sha256('abc123')
   namespaceId='11'
 
   componentDidMount () {

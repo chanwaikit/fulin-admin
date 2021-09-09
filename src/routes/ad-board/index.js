@@ -1,11 +1,7 @@
 //框架依赖
 import React, {Component, PureComponent} from 'react';
 import { Select, Input, DatePicker, Button, Row, Col, Modal, Table } from 'antd';
-import { Base64 } from 'js-base64';
-import sha256 from 'sha256';
-import callApi1 from 'utils/callApi1';
 import callApi from 'utils/callApi';
-// var echarts = require('echarts');
 import * as echarts from 'echarts';
 import CountUp from 'react-countup';
 import moment from 'moment';

@@ -1,19 +1,10 @@
 //框架依赖
 import React, {Component, PureComponent} from 'react';
 import { Select, Input, DatePicker, Row, Col, Button, Tag, Table, Upload, Spin, Modal, message } from 'antd';
-import { Base64 } from 'js-base64';
-import sha256 from 'sha256';
-import callApi1 from 'utils/callApi1';
 import callApi from 'utils/callApi';
 import dayjs from 'dayjs';
 import moment from 'moment';
-import XLSX from 'xlsx';
 import * as echarts from 'echarts';
-
-import { InboxOutlined,
-	DownloadOutlined
-
-} from '@ant-design/icons';
 
 import './index.less';
 

@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { HashRouter as Router, Route,
 	Switch, Link
 } from 'react-router-dom';
-import Index from './routes/index';
 import AdAnalyze from './routes/ad-analyze';
 import AdBoard from './routes/ad-board';
 import CategoryList from './routes/category-list';
@@ -119,7 +118,6 @@ class Home extends (PureComponent || Component) {
   								}}
   							>
   								<div style={{height: '100%'}}>
-  									<Route exact path="/" component={Index} />
   									<Route path="/ad-analyze" component={AdAnalyze} />
   									<Route path="/sku-ad" component={SkuAd} />
   									<Route path="/ad-board" component={AdBoard} />

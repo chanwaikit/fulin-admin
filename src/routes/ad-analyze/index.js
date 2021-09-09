@@ -1,19 +1,14 @@
 //框架依赖
 import React, {Component, PureComponent} from 'react';
 import { Select, Input, DatePicker, Drawer, Spin, Button, Row, Col, Table } from 'antd';
-import { Base64 } from 'js-base64';
-import sha256 from 'sha256';
 import callApi from 'utils/callApi';
 import getUrlQuery from 'utils/getUrlQuery';
-
-// var echarts = require('echarts');
 import * as echarts from 'echarts';
 import CountUp from 'react-countup';
 import moment from 'moment';
 
 import dayjs from 'dayjs';
 import './index.less';
-import { ValueType } from '_exceljs@4.2.1@exceljs';
 const {Option} = Select;
 const { RangePicker } = DatePicker;
 const spColor = '#45C2E0';
@@ -32,7 +27,6 @@ class Logon extends (PureComponent || Component) {
   }
 
   userIdentifier='12000001802'
-  password=sha256('abc123')
   namespaceId='11'
 
   componentDidMount () {
