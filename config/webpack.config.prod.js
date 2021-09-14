@@ -259,7 +259,7 @@ module.exports = {
 				test: /\.(svg)$/i,
 				loader: 'svg-sprite-loader',
 				include: [
-					require.resolve('antd-mobile').replace(/warn\.js$/, ''),
+					require.resolve('antd').replace(/warn\.js$/, ''),
 					paths.appSvgSprite,
 				],
 			},

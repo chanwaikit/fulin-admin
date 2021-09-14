@@ -1,12 +1,13 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component,Suspense, lazy, PureComponent } from 'react';
+
 import { render } from 'react-dom';
 import { HashRouter as Router, Route,
 	Switch, Link
 } from 'react-router-dom';
-import AdAnalyze from './routes/ad-analyze';
-import AdBoard from './routes/ad-board';
-import CategoryList from './routes/category-list';
-import SkuAd from './routes/sku-ad';
+// import AdAnalyze from './routes/ad-analyze';
+// import AdBoard from './routes/ad-board';
+// import CategoryList from './routes/category-list';
+// import SkuAd from './routes/sku-ad';
 
 import logo from './images/logo.jpeg';
 
@@ -20,6 +21,11 @@ import {
 	ApiOutlined,
 	PieChartOutlined,
 } from '@ant-design/icons';
+
+const AdAnalyze = React.lazy(() => import('./routes/ad-analyze'));
+const AdBoard = React.lazy(() => import('./routes/ad-board'));
+const CategoryList = React.lazy(() => import('./routes/category-list'));
+const SkuAd = React.lazy(() => import('./routes/sku-ad'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -77,6 +83,8 @@ class Home extends (PureComponent || Component) {
   	return (
   		<div id="fulin-menu">
   			{!spinning && <Router>
+          <Suspense fallback={<div></div>}>
+
   				<div>
   					 <Layout style={{height: '100vh'}}>
   						<Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -128,7 +136,7 @@ class Home extends (PureComponent || Component) {
   						</Layout>
   					</Layout>
   				</div>
-
+          </Suspense>
   			</Router>}
 
   		</div>

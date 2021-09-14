@@ -5,14 +5,14 @@ var plugin = [
 			loaderMap: {},
 		},
 	],
-	// [
-	// 	'import',
-	// 	{
-	// 		libraryName: 'antd-mobile',
-	// 		style: true,
-	// 	},
-	// 	'antd-mobile',
-	// ]
+	[
+		'import',
+		{
+			libraryName: 'antd',
+			// style: true,
+		},
+		'antd',
+	]
 ];
 
 module.exports = plugin;
