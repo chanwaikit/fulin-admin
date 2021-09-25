@@ -92,7 +92,6 @@ class Logon extends (PureComponent || Component) {
   		const profitRateValues = [];
   		const adCvrValues = [];
   		let legends = [];
-
   		categories.map((item) => {
   			let costValue = [];
   			let saleValue = [];
@@ -128,6 +127,7 @@ class Logon extends (PureComponent || Component) {
   			profitValues.push(profitValue);
   			profitRateValues.push(profitRateValue);
   			// console.log(2222, ppoValues);
+  			console.log(2222, legends);
 
   			console.log(1111, acosValue);
   		});
@@ -318,7 +318,7 @@ class Logon extends (PureComponent || Component) {
   			render: (value, record,) => {
   				return <div>
   					<a onClick={() => {
-  						window.open(`http://localhost:3000/#/ad-analyze?name=${record.local_sku}&startDate=${startDate}&endDate=${endDate}&mid=${mid}`);
+  						window.open(`http://39.108.231.99:3001/#/ad-analyze?name=${record.local_sku}&startDate=${startDate}&endDate=${endDate}&mid=${mid}`);
   					}}>{record.local_name}</a>
   				</div>;
   			}

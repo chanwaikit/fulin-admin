@@ -6,6 +6,7 @@ import getUrlQuery from 'utils/getUrlQuery';
 import * as echarts from 'echarts';
 import CountUp from 'react-countup';
 import moment from 'moment';
+import CampaignsDrawer from './CampaignsDrawer';
 
 import dayjs from 'dayjs';
 import './index.less';
@@ -15,14 +16,19 @@ const spColor = '#45C2E0';
 const sbColor = '#C1EBDD';
 const sbvColor = '#FFC851';
 const sdColor = '#5A5476';
-
+const startDateStr = dayjs(new Date().getTime() - 28 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+const endDateStr = dayjs(new Date().getTime() - 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
 class Logon extends (PureComponent || Component) {
   state = {
-  	pickerDate: [moment(getUrlQuery().startDate || '2021-07-01', 'YYYY-MM-DD'), moment(getUrlQuery().endDate || '2021-07-28', 'YYYY-MM-DD')],
+  	pickerDate: [moment(getUrlQuery().startDate || startDateStr, 'YYYY-MM-DD'), moment(getUrlQuery().endDate || endDateStr, 'YYYY-MM-DD')],
   	visible: false,
   	drawerInfo: {},
   	spinning: false,
   	drawSpinning: false,
+  	currentAdGroup: {},
+  	adGroups: [],
+  	campaignList: [],
+  	campaignVisible: false,
   	current_local_sku_mid: `${getUrlQuery().name}_${getUrlQuery().mid}`
   }
 
@@ -357,8 +363,6 @@ class Logon extends (PureComponent || Component) {
   	});
   	callApi({
   		type: 'POST',
-  		// api: '/statistic/getProfit',
-
   		api: '/statistic/getSkuStatistic',
 
   		data: {
@@ -385,8 +389,6 @@ class Logon extends (PureComponent || Component) {
   }
 
   getData = () => {
-  	const {current_local_sku_mid, pickerDate = []} = this.state;
-
   	this.setState({
   		drawSpinning: true
   	});
@@ -407,9 +409,6 @@ class Logon extends (PureComponent || Component) {
   			}, () => {
   	      this.getWeekData();
   			});
-  		},
-  		error: () => {
-
   		}
   	});
   }
@@ -769,7 +768,7 @@ class Logon extends (PureComponent || Component) {
   }
 
   render () {
-  	const {data = {}, spinning, allData = [], current_local_sku_mid = '', drawerInfo = {}, drawSpinning, visible, pickerDate = []} = this.state;
+  	const {data = {}, campaignVisible = false, spinning, campaignList = [], adGroups = [], currentAdGroup = {}, allData = [], current_local_sku_mid = '', drawerInfo = {}, drawSpinning, visible, pickerDate = []} = this.state;
   	const Statistic = this.Statistic;
 
   	const {
@@ -779,11 +778,15 @@ class Logon extends (PureComponent || Component) {
   		spClicks, sbSkuClicks, sbvClicks,
   		sbCurrencyCode
   	} = data;
+  	const selectSku = allData.filter((item) => current_local_sku_mid == item.local_sku_mid)[0] || {};
+  	const title = selectSku.local_name ? `${selectSku.local_name}_${selectSku.country}` : '';
+
+  	const startDate = dayjs(pickerDate[0]).format('YYYY-MM-DD');
+  	const endDate = dayjs(pickerDate[1]).format('YYYY-MM-DD');
   	return <div style={{height: '100%', overflowY: 'auto'}}>
   		<Spin spinning={spinning}>
   		<div >
 
-  			{/* <h1 style={{fontSize: '28px', textAlign: 'center'}}>DVD-225_Black_UK_ELECTCOM_英国</h1> */}
   			<div style={{marginBottom: '16px'}}>
 
   					<Row gutter={24}>
@@ -819,15 +822,32 @@ class Logon extends (PureComponent || Component) {
   						</Col>
   					</Row>
   		</div>
-  				{/* {
-  			data.local_name &&
-  		  <h1 style={{fontSize: '28px', textAlign: 'center'}}>{data.local_name}_{data.country}</h1>
+  		{!!title && <h1 onClick={() => {
+  					this.setState({
+  						campaignVisible: true
+  					});
+  				}} style={{cursor: 'pointer', fontSize: '28px', textAlign: 'left'}}>{title}</h1>}
 
-  		} */}
-  		<div id="chart_ad" style={{marginTop: '36px', width: '100%', height: 600}}/>
+  		<div id="chart_ad" style={{width: '100%', height: 600}}/>
 
-  		{/* <div id="chart_pie" style={{width: '100%', height: 600}}/> */}
-  		{/* <div id="chart_bar" style={{width: '100%', height: 350}}/> */}
+  				{campaignVisible && <Drawer
+  					visible={campaignVisible}
+  					width={'80vw'}
+  					title={`${startDate}~${endDate} | ${title}`}
+  					onClose={() => {
+  						this.setState({
+  							campaignVisible: false
+  						});
+  					}}
+  				>
+
+  					<CampaignsDrawer
+  						localSku={selectSku.local_sku}
+  						mid={selectSku.mid}
+  						startDate={startDate}
+  						endDate={endDate}
+  					/>
+  				</Drawer>}
   			<Drawer
   				title={`${drawerInfo.start_date_str}~${drawerInfo.end_date_str}`}
   				placement={'right'}
@@ -835,8 +855,8 @@ class Logon extends (PureComponent || Component) {
   				width={'80vw'}
   				onClose={() => {
   					this.setState({
-  					visible: false
-  				});
+  							visible: false
+  						});
   				}}
   				visible={visible}
   				key={'right'}

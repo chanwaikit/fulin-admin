@@ -16,9 +16,12 @@ const sbColor = '#C1EBDD';
 const sbvColor = '#FFC851';
 const sdColor = '#5A5476';
 
+const startDateStr = dayjs(new Date().getTime() - 28 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+const endDateStr = dayjs(new Date().getTime() - 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+console.log(startDateStr, endDateStr);
 class Logon extends (PureComponent || Component) {
   state = {
-  	pickerDate: [moment('2021-07-22', 'YYYY-MM-DD'), moment('2021-08-18', 'YYYY-MM-DD')],
+  	pickerDate: [moment(startDateStr, 'YYYY-MM-DD'), moment(endDateStr, 'YYYY-MM-DD')],
   	categories: [],
   	x_axis: [],
   	cost_sum: 0,

@@ -19,9 +19,11 @@ const callApi = ({
   return new Promise((resolve, reject) => {
     request(type, custom?`${api}`:apiBase + api)
       .timeout(200000)
-      .type('form')
+      // .type('form')
+      .type('application/json')
       .withCredentials()
-      .send(toFlattenMap(data))
+      // .send(toFlattenMap(data))
+      .send(data)
       .end((err, res) => {
         if (err || !res.ok) {
           // not alert, console log
