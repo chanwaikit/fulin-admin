@@ -184,7 +184,7 @@ class Logon extends (PureComponent || Component) {
   			});
   		});
 
-  		adCvrValues.map((item, index) => {
+  		profitValues.map((item, index) => {
   			seriesLine.push({
   				name: legends[index],
   				type: 'line',
@@ -281,7 +281,7 @@ class Logon extends (PureComponent || Component) {
   				{
   					type: 'value',
   					gridIndex: 3,
-  					name: '广告转化率（%）',
+  					name: '利润',
 
   				}
   			],
@@ -318,7 +318,7 @@ class Logon extends (PureComponent || Component) {
   			render: (value, record,) => {
   				return <div>
   					<a onClick={() => {
-  						window.open(`http://39.108.231.99:3001/#/ad-analyze?name=${record.local_sku}&startDate=${startDate}&endDate=${endDate}&mid=${mid}`);
+  						window.open(`http://39.108.231.99:3001/#/ad-analyze?name=${record.local_sku}&startDate=${startDate}&endDate=${endDate}&mid=${mid}&currencyType=2`);
   					}}>{record.local_name}</a>
   				</div>;
   			}

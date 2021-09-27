@@ -27,6 +27,7 @@ class Logon extends (PureComponent || Component) {
   	drawSpinning: false,
   	currentAdGroup: {},
   	adGroups: [],
+  	currencyType: getUrlQuery().currencyType || '0',
   	campaignList: [],
   	campaignVisible: false,
   	current_local_sku_mid: `${getUrlQuery().name}_${getUrlQuery().mid}`
@@ -41,7 +42,7 @@ class Logon extends (PureComponent || Component) {
   }
 
   getWeekData = () => {
-  	const {cid, current_local_sku_mid, pickerDate = []} = this.state;
+  	const {cid, current_local_sku_mid, currencyType, pickerDate = []} = this.state;
   	const mid = current_local_sku_mid.slice(current_local_sku_mid.lastIndexOf('_') + 1);
   	const localSku = current_local_sku_mid.slice(0, current_local_sku_mid.lastIndexOf('_'));
   	console.log(current_local_sku_mid);
@@ -50,14 +51,14 @@ class Logon extends (PureComponent || Component) {
   	});
   	callApi({
   		type: 'POST',
-  		// api: '/statistic/getSkuWeekStatistic',
   		api: '/statistic/getSkuStatistic',
 
   		data: {
   			startDate: dayjs(pickerDate[0]).format('YYYY-MM-DD'),
   			endDate: dayjs(pickerDate[1]).format('YYYY-MM-DD'),
   			local_sku: localSku,
-  			mid
+  			mid,
+  			currencyType: currencyType
   		},
   		success: (res = {}) => {
   			const {x_axis = [], categories = []} = res;
@@ -83,6 +84,9 @@ class Logon extends (PureComponent || Component) {
 
   	const chartDom = document.getElementById('chart_ad');
   	const myChart = echarts.init(chartDom, 'dark');
+
+  	myChart.off('click');
+
   	const cpoArray = [];
   	const cvrArray = [];
   	const cpcArray = [];
@@ -768,7 +772,7 @@ class Logon extends (PureComponent || Component) {
   }
 
   render () {
-  	const {data = {}, campaignVisible = false, spinning, campaignList = [], adGroups = [], currentAdGroup = {}, allData = [], current_local_sku_mid = '', drawerInfo = {}, drawSpinning, visible, pickerDate = []} = this.state;
+  	const {data = {}, currencyType, campaignVisible = false, spinning, campaignList = [], adGroups = [], currentAdGroup = {}, allData = [], current_local_sku_mid = '', drawerInfo = {}, drawSpinning, visible, pickerDate = []} = this.state;
   	const Statistic = this.Statistic;
 
   	const {
@@ -808,7 +812,7 @@ class Logon extends (PureComponent || Component) {
   						</Select>
   						</Col>
 
-  						<Col span={12}>
+  						<Col span={8}>
                   请选择时间：
   							<RangePicker
   								value={pickerDate}
@@ -819,6 +823,21 @@ class Logon extends (PureComponent || Component) {
   										this.getWeekData();
   									});
   								}}/>
+  						</Col>
+  						<Col span={4}>
+                  请选择币种：
+  							<Select
+  								value={String(currencyType)} onChange={(value) => {
+  							this.setState({
+  								currencyType: value
+  							}, () => {
+  								this.getWeekData();
+  							});
+  						}}>
+  								<Option value={'0'}>原币种</Option>;
+  								<Option value={'2'}>USD</Option>;
+
+  						</Select>
   						</Col>
   					</Row>
   		</div>
@@ -886,8 +905,8 @@ class Logon extends (PureComponent || Component) {
   						</Col>
   					</Row>
 
-  					<div id="chart_pie" style={{width: '100%', height: 600}}/>
-  						</Spin>
+  					{!spinning && <div id="chart_pie" style={{width: '100%', height: 600}}/>}
+  					</Spin>
   				</div>
   			</Drawer>
   	</div>
