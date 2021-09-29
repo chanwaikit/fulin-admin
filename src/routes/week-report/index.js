@@ -12,6 +12,9 @@ const { TextArea } = Input;
 const { Dragger } = Upload;
 const {Option} = Select;
 const { RangePicker } = DatePicker;
+const dayStartMs = moment(new Date().getTime() - 14 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+const dayEndMs = moment(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+
 class Logon extends (PureComponent || Component) {
   state = {
   	modalSpinning: false,
@@ -23,7 +26,7 @@ class Logon extends (PureComponent || Component) {
   	mid: '',
   	tableData: [],
   	modalSelect: 'total_volume',
-  	pickerDate: [moment('2021-07-01', 'YYYY-MM-DD'), moment('2021/07/07', 'YYYY-MM-DD')]
+  	pickerDate: [moment(dayStartMs, 'YYYY-MM-DD'), moment(dayEndMs, 'YYYY-MM-DD')]
   }
 
   componentDidMount () {
