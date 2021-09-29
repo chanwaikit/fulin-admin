@@ -45,7 +45,6 @@ class Logon extends (PureComponent || Component) {
   		data: {
   			startDate: dayjs(pickerDate[0]).format('YYYY-MM-DD'),
   			endDate: dayjs(pickerDate[1]).format('YYYY-MM-DD'),
-  			mid
   		},
   		success: (res = {}) => {
   			const {categories = [], cost_sum, gross_profit_sum, sales_amount_sum, x_axis} = res;
@@ -126,6 +125,9 @@ class Logon extends (PureComponent || Component) {
   		profitValues.push(profitValue);
   		profitRateValues.push(profitRateValue);
   	});
+
+  	console.log(profitRateData);
+
   	var option = {
   		legend: {
   			data: costData,

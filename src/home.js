@@ -1,4 +1,4 @@
-import React, { Component,Suspense, lazy, PureComponent } from 'react';
+import React, { Component, Suspense, lazy, PureComponent } from 'react';
 
 import { render } from 'react-dom';
 import { HashRouter as Router, Route,
@@ -20,12 +20,15 @@ import {
 	LineChartOutlined,
 	ApiOutlined,
 	PieChartOutlined,
+	BarChartOutlined
 } from '@ant-design/icons';
 
 const AdAnalyze = React.lazy(() => import('./routes/ad-analyze'));
 const AdBoard = React.lazy(() => import('./routes/ad-board'));
 const CategoryList = React.lazy(() => import('./routes/category-list'));
 const SkuAd = React.lazy(() => import('./routes/sku-ad'));
+const WeekReport = React.lazy(() => import('./routes/week-report'));
+const SkuTable = React.lazy(() => import('./routes/sku-table'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -78,12 +81,22 @@ class Home extends (PureComponent || Component) {
   		key: 'ad-analyze',
   		title: '广告详情',
   		icon: <LineChartOutlined />
+  	},
+  	{
+  		key: 'sku-table',
+  		title: '产品表',
+  		icon: <BarChartOutlined />
+  	},
+  	{
+  		key: 'week-report',
+  		title: '周报生成器',
+  		icon: <BarChartOutlined />
   	}];
 
   	return (
   		<div id="fulin-menu">
   			{!spinning && <Router>
-          <Suspense fallback={<div></div>}>
+  				<Suspense fallback={<div />}>
 
   				<div>
   					 <Layout style={{height: '100vh'}}>
@@ -130,13 +143,15 @@ class Home extends (PureComponent || Component) {
   									<Route path="/sku-ad" component={SkuAd} />
   									<Route path="/ad-board" component={AdBoard} />
   									<Route path="/category-list" component={CategoryList} />
+  									<Route path="/week-report" component={WeekReport} />
+  									<Route path="/sku-table" component={SkuTable} />
 
   								</div>
   							</Content>
   						</Layout>
   					</Layout>
   				</div>
-          </Suspense>
+  				</Suspense>
   			</Router>}
 
   		</div>
