@@ -4,8 +4,7 @@ import { Select, Input, DatePicker, Row, Col, Button, Tag, Table, Upload, Spin, 
 import callApi from 'utils/callApi';
 import dayjs from 'dayjs';
 import moment from 'moment';
-import * as echarts from 'echarts';
-
+import XLSX from 'xlsx';
 import './index.less';
 
 const { TextArea } = Input;
@@ -34,6 +33,14 @@ class Logon extends (PureComponent || Component) {
   	this.getSkuTable(() => {
   		this.getData();
   	});
+  }
+
+  doit = (type, fn, dl) => {
+  	var elt = document.getElementById('data-table');
+  	var wb = XLSX.utils.table_to_book(elt, {sheet: 'Sheet JS'});
+  	return dl
+  		? XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'})
+  		: XLSX.writeFile(wb, fn || ('SheetJSTableExport.' + (type || 'xlsx')));
   }
 
   getSkuTable =(cb) => {
@@ -185,11 +192,12 @@ class Logon extends (PureComponent || Component) {
   		})[0] || {local_name_country: value};
   		pTableData.push(row);
   	});
+  	console.log(pTableData);
   	return <div className="week-report">
   		<div style={{marginBottom: '16px'}}>
   			<Row >
 
-  			<Col span={6}>
+  			<Col span={12}>
         请选择时间：
   			<RangePicker
   				value={pickerDate}
@@ -201,13 +209,19 @@ class Logon extends (PureComponent || Component) {
   						this.getData();
   					});
   			}}/>
+        	<Button style={{marginLeft: '16px'}} type="primary" onClick={() => {
+  						const type = 'xlsx';
+  						var elt = document.getElementById('data-table');
+  						var wb = XLSX.utils.table_to_book(elt, {sheet: 'Sheet JS'});
+  						return XLSX.writeFile(wb, (`${dayjs(pickerDate[0]).format('YYYYMMDD')}-${dayjs(pickerDate[1]).format('YYYYMMDD')}.` + (type || 'xlsx')));
+  						}}>导出</Button>
   		</Col>
 
   			</Row>
   		</div>
 
   		<Spin size="large" tip="正在获取数据，请稍等..." spinning={spinning}>
-  			{!spinning && <Table sticky size="small" pagination={false} dataSource={pTableData} columns={this.getColumns()} />}
+  		   <Table bordered={true} id="data-table" size="small" pagination={false} dataSource={pTableData} columns={this.getColumns()} />
   		</Spin>
   	</div>;
   }
