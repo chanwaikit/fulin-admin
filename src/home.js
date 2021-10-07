@@ -18,9 +18,11 @@ import {
 	MenuFoldOutlined,
 	UserOutlined,
 	LineChartOutlined,
-	ApiOutlined,
+	NodeIndexOutlined,
 	PieChartOutlined,
-	BarChartOutlined
+	ProfileOutlined,
+	BarChartOutlined,
+	ScheduleOutlined
 } from '@ant-design/icons';
 
 const AdAnalyze = React.lazy(() => import('./routes/ad-analyze'));
@@ -29,6 +31,7 @@ const CategoryList = React.lazy(() => import('./routes/category-list'));
 const SkuAd = React.lazy(() => import('./routes/sku-ad'));
 const WeekReport = React.lazy(() => import('./routes/week-report'));
 const SkuTable = React.lazy(() => import('./routes/sku-table'));
+const DataRecord = React.lazy(() => import('./routes/data-record'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -66,7 +69,7 @@ class Home extends (PureComponent || Component) {
   	const menu = [{
   		key: 'sku-ad',
   		title: '品名广告映射表',
-  		icon: <ApiOutlined />
+  		icon: <NodeIndexOutlined />
   	}, {
   		key: 'ad-board',
   		title: '广告数据驾驶舱',
@@ -85,13 +88,19 @@ class Home extends (PureComponent || Component) {
   	{
   		key: 'sku-table',
   		title: '产品表',
-  		icon: <BarChartOutlined />
+  		icon: <ProfileOutlined />
   	},
   	{
   		key: 'week-report',
   		title: '周报生成器',
   		icon: <BarChartOutlined />
-  	}];
+  	},
+  	{
+  		key: 'data-record',
+  		title: '数据捕捉日志',
+  		icon: <ScheduleOutlined />
+  	}
+  	];
 
   	return (
   		<div id="fulin-menu">
@@ -145,6 +154,7 @@ class Home extends (PureComponent || Component) {
   										<Route path="/category-list" component={CategoryList} />
   										<Route path="/week-report" component={WeekReport} />
   										<Route path="/sku-table" component={SkuTable} />
+  										<Route path="/data-record" component={DataRecord} />
 
   									</div>
   								</Suspense>
