@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy, PureComponent } from 'react';
+import React, { Component, Suspense, Spin, lazy, PureComponent } from 'react';
 
 import { render } from 'react-dom';
 import { HashRouter as Router, Route,
@@ -37,7 +37,7 @@ class Home extends (PureComponent || Component) {
 	constructor (props) {
 		super(props);
 		this.state = {
-			spinning: true,
+			// spinning: true,
 			selectedKey: '',
 			userInfo: {}
 		};
@@ -96,7 +96,6 @@ class Home extends (PureComponent || Component) {
   	return (
   		<div id="fulin-menu">
   			{!spinning && <Router>
-  				<Suspense fallback={<div />}>
 
   				<div>
   					 <Layout style={{height: '100vh'}}>
@@ -138,20 +137,22 @@ class Home extends (PureComponent || Component) {
   									height: '280',
   								}}
   							>
-  								<div style={{height: '100%'}}>
-  									<Route path="/ad-analyze" component={AdAnalyze} />
-  									<Route path="/sku-ad" component={SkuAd} />
-  									<Route path="/ad-board" component={AdBoard} />
-  									<Route path="/category-list" component={CategoryList} />
-  									<Route path="/week-report" component={WeekReport} />
-  									<Route path="/sku-table" component={SkuTable} />
+  								<Suspense fallback={<div />}>
+  									<div style={{height: '100%'}}>
+  										<Route path="/ad-analyze" component={AdAnalyze} />
+  										<Route path="/sku-ad" component={SkuAd} />
+  										<Route path="/ad-board" component={AdBoard} />
+  										<Route path="/category-list" component={CategoryList} />
+  										<Route path="/week-report" component={WeekReport} />
+  										<Route path="/sku-table" component={SkuTable} />
 
-  								</div>
+  									</div>
+  								</Suspense>
+
   							</Content>
   						</Layout>
   					</Layout>
   				</div>
-  				</Suspense>
   			</Router>}
 
   		</div>
