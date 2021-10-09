@@ -162,7 +162,7 @@ class Home extends (PureComponent || Component) {
   										<Route path="/week-report" component={WeekReport} />
   										<Route path="/sku-table" component={SkuTable} />
   										<Route path="/data-record" component={DataRecord} />
-  										<Route path="/sku-remark" component={SkuRemark} />
+  										{/* <Route path="/sku-remark" component={SkuRemark} /> */}
 
   									</div>
   								</Suspense>
