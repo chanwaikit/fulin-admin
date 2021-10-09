@@ -12,7 +12,7 @@ const { TextArea } = Input;
 const { Dragger } = Upload;
 const {Option} = Select;
 const { RangePicker } = DatePicker;
-const dayStartMs = moment(new Date().getTime() - 14 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+const dayStartMs = moment(new Date().getTime() - 13 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
 const dayEndMs = moment(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
 
 class Logon extends (PureComponent || Component) {
@@ -87,6 +87,11 @@ class Logon extends (PureComponent || Component) {
   }
 
   getColumns = () => {
+  	const {cid, mid, pickerDate = []} = this.state;
+  	const startDateMs = dayjs(pickerDate[0]).valueOf();
+  	const endDateMs = dayjs(pickerDate[1]).valueOf();
+  	const day = (endDateMs - startDateMs) / 24 / 60 / 60 / 1000 + 1;
+  	console.log(day);
   	return [
   		{
   			title: '品名_国家',
@@ -141,7 +146,7 @@ class Logon extends (PureComponent || Component) {
   			key: 'sessions',
   			render: (value, record,) => {
   				return <div>
-  					{value && Number(value / 7).toFixed(2)}
+  					{value && Number(value / day).toFixed(2)}
   				</div>;
   			}
   		},
@@ -151,7 +156,7 @@ class Logon extends (PureComponent || Component) {
   			key: 'ad_clicks',
   			render: (value, record,) => {
   				return <div>
-  					{value && Number(value / 7).toFixed(2)}
+  					{value && Number(value / day).toFixed(2)}
   				</div>;
   			}
   		}, {
@@ -195,7 +200,6 @@ class Logon extends (PureComponent || Component) {
   		})[0] || {local_name_country: value};
   		pTableData.push(row);
   	});
-  	console.log(pTableData);
   	return <div className="week-report">
   		<div style={{marginBottom: '16px'}}>
   			<Row >

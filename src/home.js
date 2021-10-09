@@ -22,6 +22,7 @@ import {
 	PieChartOutlined,
 	ProfileOutlined,
 	BarChartOutlined,
+	CalendarOutlined,
 	ScheduleOutlined
 } from '@ant-design/icons';
 
@@ -32,6 +33,7 @@ const SkuAd = React.lazy(() => import('./routes/sku-ad'));
 const WeekReport = React.lazy(() => import('./routes/week-report'));
 const SkuTable = React.lazy(() => import('./routes/sku-table'));
 const DataRecord = React.lazy(() => import('./routes/data-record'));
+// const SkuRemark = React.lazy(() => import('./routes/sku-remark'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -95,6 +97,11 @@ class Home extends (PureComponent || Component) {
   		title: '周报生成器',
   		icon: <BarChartOutlined />
   	},
+  	// {
+  	// 	key: 'sku-remark',
+  	// 	title: '产品日历备注',
+  	// 	icon: <CalendarOutlined />
+  	// },
   	{
   		key: 'data-record',
   		title: '数据捕捉日志',
@@ -155,6 +162,7 @@ class Home extends (PureComponent || Component) {
   										<Route path="/week-report" component={WeekReport} />
   										<Route path="/sku-table" component={SkuTable} />
   										<Route path="/data-record" component={DataRecord} />
+  										<Route path="/sku-remark" component={SkuRemark} />
 
   									</div>
   								</Suspense>
