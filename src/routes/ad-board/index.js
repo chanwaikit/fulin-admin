@@ -1,6 +1,6 @@
 //框架依赖
 import React, {Component, PureComponent} from 'react';
-import { Select, Input, DatePicker, Button, Row, Col, Modal, Table } from 'antd';
+import { Select, Input, DatePicker, Spin, Row, Col, Modal, Table } from 'antd';
 import callApi from 'utils/callApi';
 import * as echarts from 'echarts';
 import CountUp from 'react-countup';
@@ -447,7 +447,7 @@ class Logon extends (PureComponent || Component) {
   	const self = this;
   	const categoryEnum = {'美妆': 1001, '电子影音': 1002};
   	myChart.on('click', function (params) {
-  		console.log(params);
+  		// console.log(params);
   		self.setState({
   			currentCid: categoryEnum[params.data.name || params.seriesName],
   			visible: true,
@@ -527,7 +527,7 @@ class Logon extends (PureComponent || Component) {
   }
 
   render () {
-  	const {data = {}, categoryName = '', currentCid = '', visible, pickerDate = [], mid, gross_profit_sum,	cost_sum = 0, sales_amount_sum = 0} = this.state;
+  	const {data = {}, categoryName = '', currentCid = '', visible = false, pickerDate = [], mid, gross_profit_sum,	cost_sum = 0, sales_amount_sum = 0} = this.state;
   	const Statistic = this.Statistic;
 
   	return <div id="ad-board" style={{height: '100%', overflowY: 'auto'}}>
@@ -608,8 +608,13 @@ class Logon extends (PureComponent || Component) {
   				width={'70vw'}
   			>
   				<div>
-  				  {!!visible && <ChartModal pickerDate={this.state.pickerDate} categoryName={categoryName} cid={currentCid}/>}
+  					{/* <Spin size="large" tip="Loading..." spinning={!visible} > */}
+  						{/* <div style={{minHeight: '400px'}}> */}
 
+  				      {!!visible && <ChartModal pickerDate={this.state.pickerDate} categoryName={categoryName} cid={currentCid}/>}
+  						{/* </div> */}
+
+  					{/* </Spin> */}
   				</div>
   			</Modal>}
   	</div>
