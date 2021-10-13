@@ -23,6 +23,7 @@ import {
 	ProfileOutlined,
 	BarChartOutlined,
 	CalendarOutlined,
+	CloudDownloadOutlined,
 	ScheduleOutlined
 } from '@ant-design/icons';
 
@@ -34,6 +35,7 @@ const WeekReport = React.lazy(() => import('./routes/week-report'));
 const SkuTable = React.lazy(() => import('./routes/sku-table'));
 const DataRecord = React.lazy(() => import('./routes/data-record'));
 // const SkuRemark = React.lazy(() => import('./routes/sku-remark'));
+const AmazonPPT = React.lazy(() => import('./routes/amazon-ppt'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -103,10 +105,16 @@ class Home extends (PureComponent || Component) {
   	// 	icon: <CalendarOutlined />
   	// },
   	{
+  		key: 'amazon-ppt',
+  		title: '亚马逊课件工具',
+  		icon: <CloudDownloadOutlined />
+  	},
+  	{
   		key: 'data-record',
   		title: '数据捕捉日志',
   		icon: <ScheduleOutlined />
-  	}
+  	},
+
   	];
 
   	return (
@@ -162,6 +170,8 @@ class Home extends (PureComponent || Component) {
   										<Route path="/week-report" component={WeekReport} />
   										<Route path="/sku-table" component={SkuTable} />
   										<Route path="/data-record" component={DataRecord} />
+  										<Route path="/amazon-ppt" component={AmazonPPT} />
+
   										{/* <Route path="/sku-remark" component={SkuRemark} /> */}
 
   									</div>
