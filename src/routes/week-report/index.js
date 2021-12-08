@@ -160,12 +160,12 @@ class Logon extends (PureComponent || Component) {
   				</div>;
   			}
   		}, {
-  			title: '广告费总和',
+  			title: '广告费总和+teika',
   			dataIndex: 'cost',
   			key: 'cost',
   			render: (value, record,) => {
   				return <div>
-  					{value && Number(value * record.ratio).toFixed(2)}
+  					{value && Number(value * record.ratio + record.teika_cost * record.ratio).toFixed(2)}
   				</div>;
   			}
   		}, {

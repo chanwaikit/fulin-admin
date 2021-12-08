@@ -27,6 +27,8 @@ import {
 	ScheduleOutlined
 } from '@ant-design/icons';
 
+const ShopList = React.lazy(() => import('./routes/shop-list'));
+
 const AdAnalyze = React.lazy(() => import('./routes/ad-analyze'));
 const AdBoard = React.lazy(() => import('./routes/ad-board'));
 const CategoryList = React.lazy(() => import('./routes/category-list'));
@@ -36,6 +38,7 @@ const SkuTable = React.lazy(() => import('./routes/sku-table'));
 const DataRecord = React.lazy(() => import('./routes/data-record'));
 // const SkuRemark = React.lazy(() => import('./routes/sku-remark'));
 const AmazonPPT = React.lazy(() => import('./routes/amazon-ppt'));
+const AmazonTest = React.lazy(() => import('./routes/amazon-test'));
 
 const { Header, Sider, Content } = Layout;
 window.FastClick.attach(document.body);
@@ -71,6 +74,10 @@ class Home extends (PureComponent || Component) {
   render () {
   	const { spinning, userInfo = {}, selectedKey } = this.state;
   	const menu = [{
+  		key: 'shop-list',
+  		title: '店铺列表',
+  		icon: <CloudDownloadOutlined />
+  	},{
   		key: 'sku-ad',
   		title: '品名广告映射表',
   		icon: <NodeIndexOutlined />
@@ -114,7 +121,11 @@ class Home extends (PureComponent || Component) {
   		title: '数据捕捉日志',
   		icon: <ScheduleOutlined />
   	},
-
+  	{
+  		key: 'amazon-test',
+  		title: '测试页面',
+  		icon: <CloudDownloadOutlined />
+  	},
   	];
 
   	return (
@@ -163,6 +174,7 @@ class Home extends (PureComponent || Component) {
   							>
   								<Suspense fallback={<div />}>
   									<div style={{height: '100%'}}>
+  										<Route path="/shop-list" component={ShopList} />
   										<Route path="/ad-analyze" component={AdAnalyze} />
   										<Route path="/sku-ad" component={SkuAd} />
   										<Route path="/ad-board" component={AdBoard} />
@@ -171,6 +183,7 @@ class Home extends (PureComponent || Component) {
   										<Route path="/sku-table" component={SkuTable} />
   										<Route path="/data-record" component={DataRecord} />
   										<Route path="/amazon-ppt" component={AmazonPPT} />
+  										<Route path="/amazon-test" component={AmazonTest} />
 
   										{/* <Route path="/sku-remark" component={SkuRemark} /> */}
 
