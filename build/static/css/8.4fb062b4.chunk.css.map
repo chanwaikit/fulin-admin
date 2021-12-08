@@ -1,0 +1,1 @@
+{"version":3,"sources":["routes/amazon-test/index.less"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA","file":"static/css/8.4fb062b4.chunk.css","sourcesContent":[".amazon-test {\n  height: 100%;\n  overflow-y: auto;\n}\n.amazon-test .download:hover {\n  color: #1890ff;\n}\n"],"sourceRoot":""}
