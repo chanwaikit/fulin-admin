@@ -120,7 +120,7 @@ class Logon extends (PureComponent || Component) {
   			dataIndex: 'gross_profit',
   			key: 'gross_profit',
   			render: (value, record,) => {
-  				return <span>{value && Number(value * record.ratio).toFixed(2)}</span>;
+  				return <span>{value && Number(value * record.ratio - (record.teika_cost * record.ratio || 0)).toFixed(2)}</span>;
   			}
   		}, {
   			title: '销量总和',
